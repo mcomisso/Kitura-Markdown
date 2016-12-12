@@ -11,6 +11,16 @@ Kitura-Markdown enables a Kitura based server to serve HTML content generated fr
 Markdown (.md) marked up text. In addition Kitura-Markdown can be be used to generate HTML from
 Markdown formatted text passed to provided helper functions.
 
+## Installation
+
+To install Kitura-Markdown add following line to Dependencies in Package.swift:
+
+```swift
+.Package(url: "https://github.com/IBM-Swift/Kitura-Markdown.git", majorVersion: 0)
+```
+
+Currently Swift 3.0 Release is supported
+
 ## Example
 The following is an example of a server that serves Markdown formatted text from .md files
 under the views/docs directory of the server's repository, as in the following structure:
@@ -48,7 +58,7 @@ router.get("/docs") { _, response, next in
 
 // Handle HTTP GET requests to /docs/......
 router.get("/docs/*") { request, response, next in
-    if let path = request.parsedURL.path, path != "/docs/" {
+    if let path = request.urlComponents.path, path != "/docs/" {
         try response.render(path, context: [String:Any]())
         response.status(.OK)
     }
